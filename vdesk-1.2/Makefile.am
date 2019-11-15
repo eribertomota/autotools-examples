@@ -1,0 +1,6 @@
+AM_CFLAGS = @X_CFLAGS@
+LDADD = @X_LIBS@ @X_PRE_LIBS@ -lX11 @X_EXTRA_LIBS@
+
+bin_PROGRAMS = vdesk
+
+vdesk_SOURCES = vdesk.c

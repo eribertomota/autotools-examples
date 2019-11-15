@@ -1,0 +1,48 @@
+AUTOMAKE_OPTIONS=foreign
+INCLUDES= -I@top_srcdir@/src/includes -I@top_srcdir@/src
+noinst_LIBRARIES=libparser.a
+libparser_a_SOURCES=\
+	AbstractLineMailMessageReader.h\
+	AutoTrainMailMessageReader.cc\
+	BodyParser.cc\
+	BodyParser.h\
+	FileMailMessageReader.cc\
+	FileMailMessageReader.h\
+	GifParser.cc\
+	GifParser.h\
+	HeaderParser.cc\
+	HeaderParser.h\
+	HeaderPrefixList.cc\
+	HtmlTokenizer.cc\
+	ImageParser.cc\
+	ImageParser.h\
+	JpegParser.cc\
+	JpegParser.h\
+	MaildirMailMessageReader.cc\
+	MaildirMailMessageReader.h\
+	MailMessage.cc\
+	MailMessageDigester.cc\
+	MailMessageReader.cc\
+	MailMessageReader.h\
+	MailMessageReaderFactory.cc\
+	MBoxMailMessageReader.cc\
+	MBoxMailMessageReader.h\
+	MbxMailMessageReader.cc\
+	MbxMailMessageReader.h\
+	MessageHeader.cc\
+	MessageHeaderList.cc\
+	MimeDecoder.cc\
+	MimeDecoder.h\
+	ParserConfig.cc\
+	PhrasingTokenizer.cc\
+	PhrasingTokenizer.h\
+	PngParser.cc\
+	PngParser.h\
+	SimpleTokenizer.cc\
+	StreamMailMessageReader.cc\
+	StreamMailMessageReader.h\
+	TokenCollector.cc\
+	TokenFilteringTokenizer.cc\
+	Tokenizer.cc\
+	TraditionalMailMessageParser.cc\
+	UrlOnlyHtmlTokenizer.cc

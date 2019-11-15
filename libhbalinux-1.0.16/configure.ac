@@ -1,0 +1,18 @@
+AC_INIT([libhbalinux], [1.0.16], [fcoe-devel@open-fcoe.org])
+
+m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
+AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+
+AC_PROG_LIBTOOL
+AC_PROG_CC
+
+PKG_CHECK_MODULES(PCIACCESS, pciaccess)
+AC_SUBST(PCIACCESS_CFLAGS)
+AC_SUBST(PCIACCESS_LIBS)
+
+PKG_CHECK_MODULES(HBAAPI, HBAAPI)
+AC_SUBST(HBAAPI_CFLAGS)
+
+AC_CONFIG_FILES([Makefile libhbalinux.spec libhbalinux.pc])
+AC_OUTPUT
+

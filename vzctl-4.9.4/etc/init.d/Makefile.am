@@ -1,0 +1,39 @@
+#  Copyright (C) 2000-2008, Parallels, Inc. All rights reserved.
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+INITSCRIPTS = vz-redhat vz-gentoo vzeventd-redhat vzeventd-gentoo
+script_DATA = initd-functions
+
+EXTRA_DIST = $(INITSCRIPTS:%=%.in) $(script_DATA:%=%.in)
+
+CLEANFILES = $(INITSCRIPTS) $(script_DATA)
+
+include $(top_srcdir)/pathsubst.am
+
+install-redhat: vz-redhat vzeventd-redhat
+	$(mkinstalldirs) $(DESTDIR)$(initddir)
+	$(INSTALL_SCRIPT) vz-redhat $(DESTDIR)$(initddir)/vz
+	$(INSTALL_SCRIPT) vzeventd-redhat $(DESTDIR)$(initddir)/vzeventd
+
+install-suse: install-redhat
+
+install-debian: install-redhat
+
+install-gentoo: vz-gentoo vzeventd-gentoo
+	$(mkinstalldirs) $(DESTDIR)$(initddir)
+	$(INSTALL_SCRIPT) vz-gentoo $(DESTDIR)$(initddir)/vz
+	$(INSTALL_SCRIPT) vzeventd-gentoo $(DESTDIR)$(initddir)/vzeventd

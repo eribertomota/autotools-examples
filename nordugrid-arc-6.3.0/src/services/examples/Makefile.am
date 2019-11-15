@@ -1,0 +1,8 @@
+if PYTHON_SERVICE
+PYTHON_SERVICE = echo_python
+else
+PYTHON_SERVICE =
+endif
+
+SUBDIRS = $(PYTHON_SERVICE)
+DIST_SUBDIRS = echo_python

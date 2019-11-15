@@ -1,0 +1,167 @@
+## $Id: Makefile.am,v 1.15 2010/08/19 00:11:19 nihilus Exp $
+## Process this file with automake to produce Makefile.in
+
+AUTOMAKE_OPTIONS =
+ACLOCAL_AMFLAGS = -I m4
+AM_CPPFLAGS = -I$(top_builddir)/lib -I$(top_srcdir)/lib
+
+SUBDIRS = lib
+
+## What programs do we want to build?
+
+bin_PROGRAMS = ac last @LASTCOMM_PROG@
+sbin_PROGRAMS = dump-utmp @DUMP_ACCT_PROG@ @ACCTON_PROG@ @SA_PROG@
+EXTRA_PROGRAMS = lastcomm dump-acct accton sa
+
+# What libs do we want to link against?
+
+LDADD = lib/libgnu.la
+
+## From what sources are those programs built?
+
+ac_SOURCES = ac.c common.c file_rd.c hashtab.c \
+  utmp_rd.c
+  
+accton_SOURCES = accton.c common.c
+
+dump_acct_SOURCES = dump-acct.c common.c dev_hash.c file_rd.c \
+  hashtab.c pacct_rd.c
+dump_acct_LDADD = $(LDADD) -lm
+
+dump_utmp_SOURCES = dump-utmp.c common.c dev_hash.c file_rd.c \
+ hashtab.c utmp_rd.c
+
+#dump_utmpx_SOURCES = dump-utmpx.c
+
+last_SOURCES = last.c common.c file_rd.c hashtab.c \
+  utmp_rd.c
+
+lastcomm_SOURCES = lastcomm.c common.c dev_hash.c file_rd.c \
+  hashtab.c pacct_rd.c uid_hash.c
+lastcomm_LDADD = $(LDADD) -lm
+
+sa_SOURCES = sa.c common.c file_rd.c dev_hash.c hashtab.c \
+  pacct_rd.c uid_hash.c
+sa_LDADD = $(LDADD) -lm
+
+noinst_HEADERS = common.h config.h dev_hash.h file_rd.h hashtab.h \
+  pacct_rd.h uid_hash.h utmp_rd.h al_share.cpp linux-acct.h
+
+# What documentation should we include?
+
+info_TEXINFOS = accounting.texi
+
+man_MANS = ac.1 last.1 dump-utmp.8 dump-acct.8 @ACCTON_MAN@ @LASTCOMM_MAN@ @SA_MAN@
+EXTRA_DIST = ac.1 dump-utmp.8 dump-acct.8 accton.8 last.1 lastcomm.1 sa.8 TODO m4/gnulib-cache.m4
+
+## Extra stuff to remove when cleaning
+
+DISTCLEANFILES = files.h version.h
+
+## Extra targets for debugging
+
+## Extra targets for comparing system utilities to these utils
+
+compare: compare-ac compare-last compare-lastcomm compare-sa
+
+SYS_LAST = @SYS_LAST@
+SYS_LASTCOMM = @SYS_LASTCOMM@
+SYS_AC = @SYS_AC@
+SYS_SA = @SYS_SA@
+
+WTMP_FILE_LOC = @WTMP_FILE_LOC@
+ACCT_FILE_LOC = @ACCT_FILE_LOC@
+SAVACCT_FILE_LOC = @SAVACCT_FILE_LOC@
+USRACCT_FILE_LOC = @USRACCT_FILE_LOC@
+
+compare-ac: ac
+	@echo
+	@echo "Running tests for ac"
+	@echo "The total times for each user will probably" > compare-ac
+	@echo "differ between your system's ac and GNU ac," >> compare-ac
+	@echo "owing to the fact that many stock ac's don't" >> compare-ac
+	@echo "expect errors in the wtmp file.  See the" >> compare-ac
+	@echo "documentation for more information." >> compare-ac
+	@echo >> compare-ac
+	@echo "invoking the system ac..." | tee -a compare-ac
+	@-time $(SYS_AC) -p 2>> compare-ac | sort > ac.sys
+	@echo >> compare-ac
+	@echo "invoking GNU ac..." | tee -a compare-ac
+	@-time ./ac -p --compatibility 2>> compare-ac | sort > ac.gnu
+	@echo >> compare-ac
+	@echo "diffing..."
+	@echo "diff -b <sys> <GNU>" >> compare-ac
+	@-diff -b ac.sys ac.gnu >> compare-ac
+	@echo "removing temporary files..."
+	@$(RM) ac.gnu ac.sys
+	@echo "Results are in the file compare-ac"
+	@echo
+
+compare-last: last
+	@echo
+	@echo "Running tests for last"
+	@echo "If you see differing 'ftp' entries, don't worry." > compare-last
+	@echo "Most system lasts report the incorrect time for" >> compare-last
+	@echo "ftp connections.  See the documentation for" >> compare-last
+	@echo "complete information." >> compare-last
+	@echo >> compare-last
+	@echo "invoking the system last..." | tee -a compare-last
+	@-time $(SYS_LAST) -5000 2>> compare-last > last.sys
+	@echo >> compare-last
+	@echo "invoking GNU last..." | tee -a compare-last
+	@-time ./last -5000 2>> compare-last > last.gnu
+	@echo >> compare-last
+	@echo "diffing..."
+	@echo "diff -b <sys> <GNU>" >> compare-last
+	@-diff -b last.sys last.gnu >> compare-last
+	@echo "removing temporary files..."
+	@$(RM) last.gnu last.sys
+	@echo "Results are in the file compare-last"
+	@echo
+
+compare-lastcomm: lastcomm
+	@echo
+	@echo "Running tests for lastcomm"
+	@echo "If, in the diff of the outputs, you see some" > compare-lastcomm
+	@echo "extra stuff only in the file produced" >> compare-lastcomm
+	@echo "by GNU lastcomm, don't panic.  Those" >> compare-lastcomm
+	@echo "are just the commands executed while this" >> compare-lastcomm
+	@echo "script was running." >> compare-lastcomm
+	@echo >> compare-lastcomm
+	@echo "invoking the system lastcomm..." | tee -a compare-lastcomm
+	@-time $(SYS_LASTCOMM) 2>> compare-lastcomm | head -5000 > lastcomm.sys
+	@echo >> compare-lastcomm
+	@echo "invoking GNU lastcomm..." | tee -a compare-lastcomm
+	@-time ./lastcomm 2>> compare-lastcomm | head -5000 > lastcomm.gnu
+	@echo >> compare-lastcomm
+	@echo "diffing..."
+	@echo "diff -b <sys> <GNU>" >> compare-lastcomm
+	@-diff -b lastcomm.sys lastcomm.gnu >> compare-lastcomm
+	@echo "removing temporary files..."
+	@$(RM) lastcomm.gnu lastcomm.sys
+	@echo "Results are in the file compare-lastcomm"
+	@echo
+
+compare-sa: sa
+	@echo
+	@echo "Running tests for sa"
+	@echo "If, in the diff of the outputs, you see that the" > compare-sa
+	@echo "numbers generated by GNU sa are larger than those" >> compare-sa
+	@echo "of the system, don't worry.  The numbers just" >> compare-sa
+	@echo "reflect those commands which happened while this" >> compare-sa
+	@echo "script was running." >> compare-sa
+	@echo >> compare-sa
+	@echo "invoking the system sa..." | tee -a compare-sa
+	@-time $(SYS_SA) -acilnt 2>> compare-sa > sa.sys
+	@echo >> compare-sa
+	@echo "invoking GNU sa..." | tee -a compare-sa
+	@-time ./sa -acilnt --separate-forks 2>> compare-sa > sa.gnu
+	@echo >> compare-sa
+	@echo "diffing..."
+	@echo "diff -b <sys> <GNU>" >> compare-sa
+	@-diff -b sa.sys sa.gnu >> compare-sa
+	@echo "Removing temporary files..."
+	@$(RM) sa.gnu sa.sys
+	@echo "Results are in the file compare-sa"
+	@echo
+

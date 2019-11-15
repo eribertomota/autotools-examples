@@ -1,0 +1,3 @@
+AUTOMAKE_OPTIONS = dejagnu
+DEJATOOL = voms
+AM_RUNTESTFLAGS=--debug

@@ -1,0 +1,10 @@
+AC_INIT([galib], [2.4.7], [])
+AC_CONFIG_AUX_DIR(.)
+AM_INIT_AUTOMAKE
+
+AC_PROG_LIBTOOL
+AC_PROG_CXX
+
+AC_OUTPUT(
+    Makefile
+)

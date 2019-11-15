@@ -1,0 +1,2 @@
+libGIFTAcHierarchydir=$(includedir)/libGIFTAcHierarchy/include
+libGIFTAcHierarchy_HEADERS=CAFHierarchy.h	CAcHierarchy.h uses-declarations.h

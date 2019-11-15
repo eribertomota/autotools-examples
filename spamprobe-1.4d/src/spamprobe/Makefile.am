@@ -1,0 +1,67 @@
+AUTOMAKE_OPTIONS = foreign
+LDADD = ../database/libdatabase.a ../parser/libparser.a ../hdl/libhdl.a ../input/libinput.a ../utility/libutility.a
+INCLUDES = -I@top_srcdir@/src/includes
+
+bin_PROGRAMS = spamprobe
+spamprobe_SOURCES=\
+	AbstractCommand.cc\
+	AbstractCommand.h\
+	AbstractFileCommand.cc\
+	AbstractFileCommand.h\
+	AbstractMessageCommand.cc\
+	AbstractMessageCommand.h\
+	AutoPurger.cc\
+	AutoPurger.h\
+	CommandConfig.cc\
+	CommandConfig.h\
+	Command_auto_train.cc\
+	Command_auto_train.h\
+	Command_cleanup.cc\
+	Command_cleanup.h\
+	Command_counts.cc\
+	Command_counts.h\
+	Command_create_config.cc\
+	Command_create_config.h\
+	Command_create_db.cc\
+	Command_create_db.h\
+	Command_dump.cc\
+	Command_dump.h\
+	Command_edit_term.cc\
+	Command_edit_term.h\
+	Command_exec.cc\
+	Command_exec.h\
+	Command_export.cc\
+	Command_export.h\
+	Command_help.cc\
+	Command_help.h\
+	Command_import.cc\
+	Command_import.h\
+	Command_print.cc\
+	Command_print.h\
+	Command_purge.cc\
+	Command_purge.h\
+	Command_purge_terms.cc\
+	Command_purge_terms.h\
+	Command_receive.cc\
+	Command_receive.h\
+	Command_remove.cc\
+	Command_remove.h\
+	Command_spam.cc\
+	Command_spam.h\
+	Command_summarize.cc\
+	Command_summarize.h\
+	Command_tokenize.cc\
+	Command_tokenize.h\
+	Command_train_test.cc\
+	Command_train_test.h\
+	ConfigManager.cc\
+	ConfigManager.h\
+	FilterConfig.cc\
+	FilterConfig.h\
+	SimpleTokenSelector.cc\
+	SimpleTokenSelector.h\
+	SpamFilter.cc\
+	SpamFilter.h\
+	spamprobe.cc\
+	TokenSelector.cc\
+	TokenSelector.h

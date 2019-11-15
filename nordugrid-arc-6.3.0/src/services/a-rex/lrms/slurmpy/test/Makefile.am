@@ -1,0 +1,1 @@
+SUBDIRS = submit scan

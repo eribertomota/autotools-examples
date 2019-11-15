@@ -1,0 +1,29 @@
+AUTOMAKE_OPTIONS=foreign
+INCLUDES= -I@top_srcdir@/src/includes
+noinst_LIBRARIES=libdatabase.a
+libdatabase_a_SOURCES=\
+	CleanupManager.cc\
+	DatabaseConfig.cc\
+	FrequencyDB.cc\
+	FrequencyDBImpl.h\
+	FrequencyDBImpl_bdb.cc\
+	FrequencyDBImpl_bdb.h\
+	FrequencyDBImpl_cache.cc\
+	FrequencyDBImpl_cache.h\
+	FrequencyDBImpl_dbm.cc\
+	FrequencyDBImpl_dbm.h\
+	FrequencyDBImpl_dual.cc\
+	FrequencyDBImpl_dual.h\
+	FrequencyDBImpl_hash.cc\
+	FrequencyDBImpl_hash.h\
+	FrequencyDBImpl_null.cc\
+	FrequencyDBImpl_null.h\
+	FrequencyDBImpl_pbl.cc\
+	FrequencyDBImpl_pbl.h\
+	FrequencyDBImpl_split.cc\
+	FrequencyDBImpl_split.h\
+	HashDataFile.cc\
+	HashDataFile.h\
+	Message.cc\
+	WordArray.cc\
+	WordArray.h

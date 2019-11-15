@@ -1,0 +1,63 @@
+AUTOMAKE_OPTIONS=foreign
+EXTRA_DIST=\
+	AbstractCharReader.h\
+	AbstractMailMessageParser.h\
+	AbstractMailMessageReader.h\
+	AbstractMultiLineString.h\
+	AbstractTokenizer.h\
+	AbstractTokenReceiver.h\
+	Array.h\
+	AutoTrainMailMessageReader.h\
+	Buffer.h\
+	CleanupManager.h\
+	config.h\
+	DatabaseConfig.h\
+	File.h\
+	FrequencyDB.h\
+	hash.h\
+	HeaderPrefixList.h\
+	HdlError.h\
+	HdlParser.h\
+	HdlPrinter.h\
+	HdlStatement.h\
+	HdlSyntaxChecker.h\
+	HdlToken.h\
+	HdlTokenizer.h\
+	HtmlTokenizer.h\
+	InterruptedException.h\
+	IstreamCharReader.h\
+	LineReader.h\
+	LockFD.h\
+	LockFile.h\
+	LRUCache.h\
+	MailMessage.h\
+	MailMessageDigester.h\
+	MailMessageList.h\
+	MailMessageReaderFactory.h\
+	MD5Digester.h\
+	Message.h\
+	MessageHeader.h\
+	MessageHeaderList.h\
+	MultiLineJoinedString.h\
+	MultiLineString.h\
+	MultiLineSubString.h\
+	ParserConfig.h\
+	Ptr.h\
+	Ref.h\
+	RegularExpression.h\
+	SimpleMultiLineStringCharReader.h\
+	SimpleTokenizer.h\
+	StringReader.h\
+	TempPtr.h\
+	TokenCollector.h\
+	TokenFilteringTokenizer.h\
+	Token.h\
+	Tokenizer.h\
+	TraditionalMailMessageParser.h\
+	UrlOnlyHtmlTokenizer.h\
+	util.h\
+	WordData.h
+
+#noinst_PROGRAMS=testrc
+#testrc_SOURCES=\
+#	testrc.cc
